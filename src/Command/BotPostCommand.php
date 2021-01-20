@@ -51,6 +51,11 @@ class BotPostCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @author bernard-ng <ngandubernard@gmail.com>
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -58,10 +63,6 @@ class BotPostCommand extends Command
         $io = new SymfonyStyle($input, $output);
         try {
             $status = $this->covid19->getConfirmedCase();
-
-
-            dd($status);
-
             $this->twitter->post($status);
 
             $io->success('Posted');
