@@ -50,14 +50,18 @@ class Covid19Service
         });
 
         if ($congo) {
+            $mentions = ['@OMSRDCONGO', '@actualitecd', '@StanysBujakera', '@politicocd', '@JacquesKyabula', '@OkondaBelise'];
+            $mention = $mentions[array_rand($mentions)];
             $stats = $data[array_key_first($congo)];
-            $date = date('d M Y H:i', intval(floor($stats['lastUpdate'] / 1000)));
+
             return <<< TWEET
-                Situation actuelle du #COVID19 en #RDC
+                Situation actuelle du #COVID-19 en #RDC
                 -> Confirmés : {$stats['confirmed']}
                 -> Guérisons : {$stats['recovered']}
                 -> Morts : {$stats['deaths']}
-                Dernière mise à jour : $date
+                Mise à jour toutes les 3 heures
+
+                #COVID19 #vaccine @MinSanteRDC {$mention}
             TWEET;
         }
         return null;
