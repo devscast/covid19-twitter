@@ -50,7 +50,14 @@ class Covid19Service
         });
 
         if ($congo) {
-            $mentions = ['@OMSRDCONGO', '@actualitecd', '@StanysBujakera', '@politicocd', '@JacquesKyabula', '@OkondaBelise'];
+            $mentions = [
+                '@OMSRDCONGO',
+                '@actualitecd',
+                '@StanysBujakera',
+                '@politicocd',
+                '@JacquesKyabula',
+                '@OkondaBelise'
+            ];
             $mention = $mentions[array_rand($mentions)];
             $stats = $data[array_key_first($congo)];
 
