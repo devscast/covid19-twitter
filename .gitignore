@@ -8,6 +8,7 @@
 /var/
 /vendor/
 /.idea/
+/public/uploads/
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###

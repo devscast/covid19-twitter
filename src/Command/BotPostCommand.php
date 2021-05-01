@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Service\Covid19Service;
 use App\Service\TwitterService;
+use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,21 +21,18 @@ class BotPostCommand extends Command
 {
     protected static $defaultName = 'bot:post';
     private LoggerInterface $logger;
-    private Covid19Service $covid19;
     private TwitterService $twitter;
 
     /**
      * BotPostCommand constructor.
-     * @param Covid19Service $covid19
      * @param TwitterService $twitter
      * @param LoggerInterface $logger
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function __construct(Covid19Service $covid19, TwitterService $twitter, LoggerInterface $logger)
+    public function __construct(TwitterService $twitter, LoggerInterface $logger)
     {
         parent::__construct();
         $this->logger = $logger;
-        $this->covid19 = $covid19;
         $this->twitter = $twitter;
     }
 
@@ -51,23 +48,17 @@ class BotPostCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @author bernard-ng <ngandubernard@gmail.com>
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         try {
-            $status = $this->covid19->getConfirmedCase();
-            $this->twitter->post($status);
+            $this->twitter->post();
 
-            $io->success('Posted');
+            $io->success('Tweeted !');
             return Command::SUCCESS;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->logger->error($e, $e->getTrace());
             return Command::FAILURE;
         }

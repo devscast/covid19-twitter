@@ -62,7 +62,7 @@ class Covid19Service
             $stats = $data[array_key_first($congo)];
 
             return <<< TWEET
-                Situation actuelle du #COVID-19 en #RDC
+                Situation actuelle du #COVID19 en #RDC
                 -> Confirmés : {$stats['confirmed']}
                 -> Guérisons : {$stats['recovered']}
                 -> Morts : {$stats['deaths']}
