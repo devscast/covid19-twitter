@@ -73,16 +73,14 @@ class PexelsService
                 return $this->root . 'media.jpg';
             }
         } catch (
-        ClientExceptionInterface |
-        DecodingExceptionInterface |
-        RedirectionException |
-        RedirectionExceptionInterface |
-        ServerExceptionInterface |
-        TransportExceptionInterface $e
+            ClientExceptionInterface |
+            DecodingExceptionInterface |
+            RedirectionException |
+            RedirectionExceptionInterface |
+            ServerExceptionInterface |
+            TransportExceptionInterface $e
         ) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }
-
-
 }
