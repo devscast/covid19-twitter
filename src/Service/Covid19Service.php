@@ -61,11 +61,16 @@ class Covid19Service
             $mention = $mentions[array_rand($mentions)];
             $stats = $data[array_key_first($congo)];
 
+            $recovery = isset($stats['recovered']) ? "-> Guérisons : {$stats['recovered']}" : '';
+            $confirmed = isset($stats['confirmed']) ? "-> Confirmés : {$stats['confirmed']}" : '';
+            $deaths = isset($stats['deaths']) ? "-> Morts : {$stats['deaths']}" : '';
+
             return <<< TWEET
                 Situation actuelle du #COVID19 en #RDC
-                -> Confirmés : {$stats['confirmed']}
-                -> Guérisons : {$stats['recovered']}
-                -> Morts : {$stats['deaths']}
+                { $confirmed }
+                { $recovery }
+                { $deaths }
+            
                 Mise à jour toutes les 3 heures
 
                 #COVID19 #vaccine @MinSanteRDC {$mention}
